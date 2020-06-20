@@ -1,0 +1,18 @@
+.card-header {
+    color: #000;
+}
+.card-body {
+    color: #000;
+}
+.shrink {
+    width: 100%;
+}
+.card {
+    color: #000;
+}
+.brand-image {
+    background: url(/backend/home-baner.jpg);
+}
+.pos-number-field [type=number] {
+    width: 100% !important;
+}
