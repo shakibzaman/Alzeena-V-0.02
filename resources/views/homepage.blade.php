@@ -12,7 +12,7 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Css Styles -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{ asset('web/css/bootstrap.min.css')}}" type="text/css">
@@ -36,7 +36,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="#"><img src="{{ asset('web/img/logo.png')}}" alt=""></a>
+            <router-link to="/"><img src="{{ asset('web/img/logo.png')}}" alt=""></router-link>
         </div>
         <div class="humberger__menu__cart">
             <ul>
@@ -52,7 +52,7 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
+                <li class="active"><a href="#">Home</a></li>
                 <li><router-link to="/show-category">Shop</router-link></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
@@ -115,36 +115,29 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="{{ asset('web/img/logo.png')}}" alt=""></a>
+                        <router-link to="/"><img src="{{ asset('web/img/logo.png')}}" alt=""></router-link>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-9">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
-                            <li><a href="./shop-grid.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li class="active"><router-link to="/">Home</router-link></li>
+                            <li><router-link to="/public-product/">Shop</router-link></li>
+                            <li><router-link to="/public-cart">Cart</router-link></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><router-link to="/location/">Location</router-link></li>
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-3">
-                    <div class="header__cart">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                        </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
-                    </div>
-                </div>
+{{--                <div class="col-lg-3">--}}
+{{--                    <div class="header__cart">--}}
+{{--                        <ul>--}}
+{{--                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>--}}
+{{--                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>--}}
+{{--                        </ul>--}}
+{{--                        <div class="header__cart__price">item: <span>$150.00</span></div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
             <div class="humberger__open">
                 <i class="fa fa-bars"></i>
@@ -162,7 +155,8 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
                     <div class="footer__about__logo">
-                        <a href="./index.html"><img src="{{ asset('web/img/logo.png')}}" alt=""></a>
+                        <router-link to="/"><img src="{{ asset('web/img/logo.png')}}" alt=""></router-link>
+
                     </div>
                     <ul>
                         <li>Address: 60-49 Road 11378 New York</li>
@@ -224,8 +218,9 @@
 </footer>
 <!-- Footer Section End -->
 
+
 <!-- Js Plugins -->
-<script src="{{ asset('js/app.js')}}"></script>
+{{--<script src="{{ asset('js/app.js')}}"></script>--}}
 <script src="{{ asset('web/js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{ asset('web/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('web/js/jquery.nice-select.min.js')}}"></script>
@@ -234,7 +229,29 @@
 <script src="{{ asset('web/js/mixitup.min.js')}}"></script>
 <script src="{{ asset('web/js/owl.carousel.min.js')}}"></script>
 <script src="{{ asset('web/js/main.js')}}"></script>
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            xfbml            : true,
+            version          : 'v7.0'
+        });
+    };
 
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Your Chat Plugin code -->
+<div class="fb-customerchat"
+     attribution=setup_tool
+     page_id="271074933082051">
+</div>
 
 </body>
 

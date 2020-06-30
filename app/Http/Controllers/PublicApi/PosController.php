@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\AdminApi;
+namespace App\Http\Controllers\PublicApi;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-use Auth;
-class PosShopController extends Controller
+class PosController extends Controller
 {
     public function GetProduct($id)
     {
-    	$product=DB::table('store_products')
+    	$product=DB::table('online_products')
                 ->where('category_id',$id)
                 ->get();
         return response()->json($product);
@@ -36,9 +35,9 @@ class PosShopController extends Controller
          $data['payby']=$request->payby;
          $data['pay']=$request->pay;
          $data['due']=$due;
-         $data['store_id']=3;
+         $data['store_id']=2;
          $data['order_status']=$request->order_status;
-         $data['order_by']=Auth::user()->id;
+         $data['order_by']=$request->user_id;
          $data['order_date']=date('Y-m-d');
          $data['order_month']=date('F');
          $data['order_year']=date('Y');
@@ -55,7 +54,7 @@ class PosShopController extends Controller
          	$odata['sub_total']=$content->sub_total;
             DB::table('order_details')->insert($odata);
 
-            DB::table('store_products')
+            DB::table('online_products')
                  ->where('id',$content->pro_id)
                  ->update(['product_quantity' => DB::raw('product_quantity -' .$content->pro_quantity)]);
 

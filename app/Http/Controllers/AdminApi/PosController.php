@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminApi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use Auth;
 class PosController extends Controller
 {
     public function GetProduct($id)
@@ -37,7 +38,7 @@ class PosController extends Controller
          $data['due']=$due;
          $data['store_id']=2;
          $data['order_status']=$request->order_status;
-         $data['order_by']=$request->user_id;
+         $data['order_by']=Auth::user()->id;
          $data['order_date']=date('Y-m-d');
          $data['order_month']=date('F');
          $data['order_year']=date('Y');

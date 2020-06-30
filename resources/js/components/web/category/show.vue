@@ -1,33 +1,33 @@
 <template>
     <div>
+        <!-- Breadcrumb Section Begin -->
+        <div class="breadcrumb-section" :style="{'background-image':'url(http://localhost:8000/web/img/breadcrumb.jpg)'}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="breadcrumb__text" v-for="category in categoriesproducts">
+                            <h2>Show Product from {{category.category_name}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb Section End -->
         <div class="hero">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3">
-                        <div class="hero__categories">
-                            <div class="hero__categories__all">
-                                <i class="fa fa-bars"></i>
-                                <span>All departments</span>
-                            </div>
-                            <ul v-for="category in categories" :key="category.id">
-                                <li>
-                                    <router-link :to="{name: 'categoryShow', params:{id: category.id} }">{{category.category_name}}</router-link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
+                    <div class="col-lg-12" v-for="category in categoriesproducts">
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6" v-for="category in categoriesproducts">
+                            <div class="col-md-3" >
+
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" >
                                         <div class="pro-image">
                                             <img :src="'/'+category.image" class="image">
                                         </div>
                                         <ul class="product__item__pic__hover">
-                                            <li><router-link :to="{name: 'fav-product',params:{id: category.id}}"><i class="fa fa-heart"></i></router-link></li>
                                             <li><router-link :to="{name: 'productShow',params:{id: category.id}}"><i class="fa fa-retweet"></i></router-link></li>
-                                            <li><router-link :to ="{name: 'cart-product',params:{id: category.id}}"><i class="fa fa-shopping-cart"></i></router-link></li>
+                                            <button class="btn bt-sm" @click.prevent="AddToCart(category.id)"><li><i class="fa fa-shopping-cart"></i></li></button>
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
@@ -51,6 +51,7 @@
 
 <script>
     export default {
+
         name: "show",
         data(){
             return{
@@ -70,10 +71,24 @@
                 .then(({data}) => (this.categories = data))
                 .catch()
 
+            this.cartProduct();
+            Reload.$on('AfterAdd', () => {
+                this.cartProduct();
+            })
         },
         methods:{
-
-
+            AddToCart(id){
+                axios.get('/apipublic/addTocart/'+id)
+                    .then(() => {
+                        Reload.$emit('AfterAdd');
+                        Notification.cart_success()
+                    })
+            },
+            cartProduct(){
+                axios.get('/apipublic/cart/product')
+                    .then(({data}) => (this.cards = data))
+                    .catch()
+            },
 
         }
     }

@@ -58,12 +58,6 @@
 <script>
 
     export default {
-    	mounted(){
-            if (!User.loggedIn()) {
-               this.$router.push({ name:'/' })
-            }
-        },
-
         created(){
         this.allSupplier();
         },

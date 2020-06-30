@@ -1,20 +1,26 @@
 <template>
     <div>
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Point Of sale</li>
-        </ol>
-        <div class="row ">
-            <div class="card col-lg-5">
-                <div class="card-header">
-                    <i class="fas fa-chart-area"></i>
-                    Expense Insert
-                    <a class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal" id="add_new"> Add Customer</a>
+        <!-- Breadcrumb Section Begin -->
+        <div class="breadcrumb-section" :style="{'background-image':'url(http://localhost:8000/web/img/breadcrumb.jpg)'}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="breadcrumb__text">
+                            <h2>Checkout</h2>
+                        </div>
+                    </div>
                 </div>
-
+            </div>
+        </div>
+        <!-- Breadcrumb Section End -->
+        <div class="row ">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item text-center">
+                        Check Your Shoping Cart
+                    </li>
+                </ol>
+            <div class="card col-lg-12">
                 <div class="card-body">
                     <table class="table table-sm table-striped">
                         <thead>
@@ -46,8 +52,8 @@
                     </table>
                     <hr>
                 </div>
-                <div class="card-footer">
-                    <ul class="list-group">
+                <div class="card-footer row">
+                    <ul class="list-group col-md-6">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Total Quantity:
                             <strong>{{ qty }}</strong>
@@ -56,10 +62,10 @@
                             Sub Total:
                             <strong>{{ subtotal }} Tk</strong>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            discount <div class="col-md-4 pos-number-field"><input type="number" v-model.number="discount" class="form-control" >
-                        </div>
-                        </li>
+<!--                        <li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                            discount <div class="col-md-4 pos-number-field"><input type="number" v-model.number="discount" class="form-control" >-->
+<!--                        </div>-->
+<!--                        </li>-->
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Delivery Charge<div class="col-md-4 pos-number-field"><input type="number" v-model.number="delevary_charge" class="form-control" >
                         </div>
@@ -73,6 +79,7 @@
                         </li>
                     </ul>
                     <br>
+                    <div class="col-md-6">
                     <form @submit.prevent="orderdone">
                         <div class="form-group">
                             <div class="form-row">
@@ -107,93 +114,37 @@
                                 </div>
                             </div>
                         </div>
-                        <label>Pay</label>
-                        <input type="text" class="form-control" v-model="pay">
+<!--                        <label>Pay</label>-->
+<!--                        <input type="text" class="form-control" v-model="pay">-->
 
-                        <label>Due</label>
-                        <!--                      <input type="text" class="form-control">-->
-                        <p><b>{{Finaldue}}</b></p>
-                        <label>Pay By </label>
-                        <select class="form-control" v-model="payby">
-                            <option value="HandCash">Hand Cash</option>
-                            <option value="Cheaque">Cheaque</option>
-                            <option value="GiftCard">Gift Card</option>
-                        </select>
-                        <label>Status</label>
-                        <select class="form-control" v-model="order_status">
-                            <option :value="status.id" v-for="status in statuss">{{ status.status_name }}</option>
-                        </select>
+<!--                        <label>Due</label>-->
+<!--                        &lt;!&ndash;                      <input type="text" class="form-control">&ndash;&gt;-->
+<!--                        <p><b>{{Finaldue}}</b></p>-->
+<!--                        <label>Pay By </label>-->
+<!--                        <select class="form-control" v-model="payby">-->
+<!--                            <option value="HandCash">Hand Cash</option>-->
+<!--                            <option value="Cheaque">Cheaque</option>-->
+<!--                            <option value="GiftCard">Gift Card</option>-->
+<!--                        </select>-->
+<!--                        <label>Status</label>-->
+<!--                        <select class="form-control" v-model="order_status">-->
+<!--                            <option :value="status.id" v-for="status in statuss">{{ status.status_name }}</option>-->
+<!--                        </select>-->
 
-                        <br>
-                        <label>Delivery Company</label>
-                        <select class="form-control" v-model="delevary_company">
-                            <option :value="company.id" v-for="company in companies">{{ company.company_name }}</option>
-                        </select>
-                        <br>
-                        <label>Note</label>
-                        <input type="text" class="form-control" v-model="order_note">
-                        <br>
+<!--                        <br>-->
+<!--                        <label>Delivery Company</label>-->
+<!--                        <select class="form-control" v-model="delevary_company">-->
+<!--                            <option :value="company.id" v-for="company in companies">{{ company.company_name }}</option>-->
+<!--                        </select>-->
+<!--                        <br>-->
+<!--                        <label>Note</label>-->
+<!--                        <input type="text" class="form-control" v-model="order_note">-->
+<!--                        <br>-->
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>
-                </div>
-            </div>
-            <div class="card col-lg-7">
-                <div class="card-header">
-                    <i class="fas fa-chart-area"></i>
-                    Products
-                </div>
-
-                <div class="card-body">
-                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">All Product</a>
-                        </li>
-
-                        <!--                 <li class="nav-item" v-for="category in categories" :key="category.id">-->
-                        <!--                   <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" @click="subproduct(category.id)">{{ category.category_name }}</a>-->
-                        <!--                 </li>-->
-
-                    </ul>
-                    <div class="tab-content" id="pills-tabContent">
-
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                            <input type="text" v-model="searchTerm" class="form-control" placeholder="search"><br>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-6" v-for="product in filtersearch" :key="product.id">
-                                    <button class="btn bt-sm" @click.prevent="AddToCart(product.id)">
-                                        <div class="card" style="width: 9rem; height: 180px;">
-                                            <img :src="product.image" class="card-img-top" style="height: 100px; width: 100px;">
-                                            <div class="card-body">
-                                                <small class="card-title">{{ product.product_name }}</small>
-                                                <span class="badge badge-success" v-if="product.product_quantity >= 1"> Availble ({{ product.product_quantity }}) </span>
-                                                <span class="badge badge-danger" v-else="">Stock Out</span>
-                                            </div>
-                                        </div>
-                                    </button>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                            <input type="text" v-model="getsearchTerm" class="form-control" placeholder="search"><br>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-6" v-for="getproduct in getfiltersearch" :key="getproduct.id">
-                                    <button class="btn btn-sm" @click.prevent="AddToCart(getproduct.id)">
-                                        <div class="card" style="width: 9rem; height: 180px;">
-                                            <img :src="getproduct.image" class="card-img-top" style="height: 100px; width: 100px;">
-                                            <div class="card-body">
-                                                <small class="card-title">{{ getproduct.product_name }}</small>
-                                                <span class="badge badge-success" v-if="getproduct.product_quantity >= 1"> Availble ({{ getproduct.product_quantity }}) </span>
-                                                <span class="badge badge-danger" v-else="">Stock Out</span>
-                                            </div>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         <!-- Icon Cards-->
@@ -209,16 +160,12 @@
             this.allCategory();
             this.allCustomer();
             this.cartProduct();
-            this.vat();
+            // this.id();
 
 
             Reload.$on('AfterAdd', () => {
                 this.cartProduct();
             })
-            axios.get('/api/status/')
-                .then(({data}) => (this.statuss = data)),
-                axios.get('/api/deli-company/')
-                    .then(({data}) => (this.companies = data))
         },
         data(){
             return{
@@ -244,8 +191,8 @@
                 customers:'',
                 errors:'',
                 cards:[],
-                vats:'',
-                users:[],
+                // user_id:'',
+                // users:[],
                 statuss:'',
                 order_status:'',
                 companies:'',
@@ -302,50 +249,50 @@
         methods:{
             //cart methods here
             AddToCart(id){
-                axios.get('/api/addTocartShop/'+id)
+                axios.get('/apipublic/addTocart/'+id)
                     .then(() => {
                         Reload.$emit('AfterAdd');
                         Notification.cart_success()
                     })
             },
             cartProduct(){
-                axios.get('/api/cart/product')
+                axios.get('/apipublic/cart/product')
                     .then(({data}) => (this.cards = data))
                     .catch()
             },
             removeItem(id){
-                axios.get('/api/remove/cart/'+id)
+                axios.get('/apipublic/remove/cart/'+id)
                     .then(() => {
                         Reload.$emit('AfterAdd');
                         Notification.success()
                     })
             },
             increment(id){
-                axios.get('/api/increment/'+id)
+                axios.get('/apipublic/increment/'+id)
                     .then(() => {
                         Reload.$emit('AfterAdd');
                         Notification.success()
                     })
             },
             decrement(id){
-                axios.get('/api/decrement/'+id)
+                axios.get('/apipublic/decrement/'+id)
                     .then(() => {
                         Reload.$emit('AfterAdd');
                         Notification.success()
                     })
             },
-            vat(){
-                axios.get('/api/vats')
-                    .then(({data}) => (this.vats = data))
-                    .catch()
-            },
+            // id(){
+            //     this.user_id=User.id();
+            //     // console.log(this.user_id);
+            //
+            // },
             orderdone(){
-                axios.post('/api/customer/',this.form)
+                axios.post('/apipublic/customer/',this.form)
                 let total =this.subtotal-this.discount;
 
                 var data = {order_note:this.order_note,delevary_company:this.delevary_company,delevary_charge:this.delevary_charge,discount:this.discount,qty:this.qty, subtotal:this.subtotal, phone:this.form.phone, payby:this.payby, pay:this.pay,total:total,order_status:this.order_status}
 
-                axios.post('/api/shoporderdone/',data)
+                axios.post('/apipublic/orderdone/',data)
                     .then(() => {
                         Notification.success()
                         this.$router.push({ name: 'order' })
@@ -353,23 +300,23 @@
             },
             // end cart methods
             allProduct(){
-                axios.get('/api/store-product')
+                axios.get('/apipublic/online-product')
                     .then(({data}) => (this.products = data))
                     .catch()
             },
             allCategory(){
-                axios.get('/api/category/')
+                axios.get('/apipublic/online-category/')
                     .then(({data}) => (this.categories = data))
                     .catch()
             },
             allCustomer(){
-                axios.get('/api/customer/')
+                axios.get('/apipublic/customer/')
                     .then(({data}) => (this.customers = data))
                     .catch(error => this.errors = error.response.data.errors)
             },
             subproduct(id)
             {
-                axios.get('/api/getting/product/'+id)
+                axios.get('/apipublic/getting/product/'+id)
                     .then(({data}) => (this.getproducts = data))
                     .catch(error => this.errors = error.response.data.errors)
             },

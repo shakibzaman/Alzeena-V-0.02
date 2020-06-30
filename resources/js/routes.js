@@ -99,6 +99,9 @@ let reportProfit  = require('./components/report/dateWiseProfitReport.vue').defa
  let homepage  = require('./components/web/home/index.vue').default;
 let categoryShow  = require('./components/web/category/show.vue').default;
 let productShow  = require('./components/web/product/show.vue').default;
+let publicCart  = require('./components/web/cart/cart.vue').default;
+let allProduct  = require('./components/web/product/index.vue').default;
+let location  = require('./components/web/home/location.vue').default;
 
 export const routes = [
     {
@@ -147,7 +150,7 @@ export const routes = [
     { path: '/admin/supplier-invoice', component: invoiceSupplier, name:'invoiceSupplier' },
     // whole Saler
     { path: '/admin/store-saler', component: storesaler, name:'store-saler' },
-    { path: '/admin/saler', component: saler, name:'saler' },
+    { path: '/admin/salers', component: saler, name:'saler' },
     { path: '/admin/edit-saler/:id', component: editsaler, name:'edit-saler' },
     //category---
     { path: '/admin/store-category', component: storecategory, name:'store-category' },
@@ -221,8 +224,11 @@ export const routes = [
     { path: '/admin/report-profit', component: reportProfit, name:'reportProfit' },
 
     // frontend
-    // { path: '/', component: homepage, name:'homepage' },
+     { path: '/', component: homepage, name:'homepage' },
     { path: '/show-category/:id', component: categoryShow, name:'categoryShow' },
     { path: '/show-product/:id', component: productShow, name:'productShow' },
+    { path: '/public-cart/', component: publicCart, name:'publicCart' },
+    { path: '/public-product/', component: allProduct, name:'allProduct' },
+    { path: '/location/', component: location, name:'location' },
 
 ];

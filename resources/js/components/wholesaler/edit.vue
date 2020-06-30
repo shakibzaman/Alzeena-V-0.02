@@ -65,11 +65,6 @@
 <script>
 
     export default {
-    	mounted(){
-            if (!User.loggedIn()) {
-               this.$router.push({ name:'/' })
-            }
-        },
         data(){
         	return{
         		form:{

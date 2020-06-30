@@ -195,9 +195,9 @@
                </div>
             </div>
          </div>
-                   {{user_id}}
-                   {{users.role_id}}
-                   {{users.name}}
+<!--                   {{user_id}}-->
+<!--                   {{users.role_id}}-->
+<!--                   {{users.name}}-->
         </div>
         <!-- Icon Cards-->
 
@@ -207,18 +207,13 @@
 
 <script>
     export default {
-      mounted(){
-            if (!User.loggedIn()) {
-               this.$router.push({ name:'/' })
-            }
-        },
+
         created() {
             this.allProduct();
             this.allCategory();
             this.allCustomer();
             this.cartProduct();
             this.vat();
-            this.id();
 
 
             Reload.$on('AfterAdd', () => {
@@ -254,7 +249,6 @@
             errors:'',
             cards:[],
             vats:'',
-            user_id:'',
             users:[],
             statuss:'',
             order_status:'',
@@ -349,16 +343,16 @@
              .then(({data}) => (this.vats = data))
              .catch()
           },
-            id(){
-                this.user_id=User.id();
-                // console.log(this.user_id);
-
-            },
+            // id(){
+            //     this.user_id=User.id();
+            //     // console.log(this.user_id);
+            //
+            // },
           orderdone(){
               axios.post('/api/customer/',this.form)
             let total =this.subtotal-this.discount;
 
-            var data = {order_note:this.order_note,delevary_company:this.delevary_company,delevary_charge:this.delevary_charge,discount:this.discount,qty:this.qty, subtotal:this.subtotal, phone:this.form.phone, payby:this.payby, pay:this.pay,total:total,user_id:this.user_id,order_status:this.order_status}
+            var data = {order_note:this.order_note,delevary_company:this.delevary_company,delevary_charge:this.delevary_charge,discount:this.discount,qty:this.qty, subtotal:this.subtotal, phone:this.form.phone, payby:this.payby, pay:this.pay,total:total,order_status:this.order_status}
 
             axios.post('/api/orderdone/',data)
             .then(() => {

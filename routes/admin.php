@@ -7,10 +7,13 @@ Route::apiResource('users', 'AdminApi\UserController');
 Route::apiResource('roles', 'AdminApi\RoleController');
 Route::apiResource('permissions', 'AdminApi\PermissionController');
 Route::apiResource('blogs', 'BlogController')->middleware('auth');
-
+Route::middleware('auth:api')->get('/userId', function (Request $request) {
+    return $request->user()->id;
+});
+Route::get('/me', 'AdminApi\UserController@GetUser');
 Route::post('blogs/{blog}/update-image', 'BlogController@updateFeaturedImage')->middleware('auth');
 
-Route::group(['middleware' => ['auth']], function () {
+//Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('/supplier', 'AdminApi\SupplierController');
     Route::apiResource('/category', 'AdminApi\CategoryController')->middleware('auth');
     Route::apiResource('/wholesale', 'AdminApi\WholeSalerController')->middleware('auth');
@@ -163,4 +166,4 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/report/earning', 'AdminApi\ReportProfitController@SearchExpenseDate');
 
 
-});
+//});

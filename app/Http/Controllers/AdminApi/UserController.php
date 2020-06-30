@@ -99,4 +99,10 @@ class UserController extends Controller
     {
         return User::destroy($id);
     }
+    public function GetUser()
+    {
+        $user=DB::table('users')->where('id',$id)->first();
+
+        return response()->json($user);
+    }
 }

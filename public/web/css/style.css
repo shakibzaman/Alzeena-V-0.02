@@ -1606,6 +1606,7 @@ ol {
 .product__item__text {
 	text-align: center;
 	padding-top: 15px;
+    padding-bottom: 10px !important;
 }
 
 .product__item__text h6 {
@@ -3485,4 +3486,51 @@ ol {
 }
 .title-margin {
     margin: 40px 0px;
+}
+.header__logo {
+    width: 50%;
+    margin: 0px auto;
+}
+.btn-cart {
+    width: 50%;
+}
+.shop-page .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background: #d3ca13;
+    color: #000;
+}
+.shop-page a#pills-profile-tab {
+    color: #197403;
+}
+.product__item {
+    -webkit-box-shadow: 2px 4px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 4px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 4px 5px 0px rgba(0,0,0,0.75);
+}
+.cat_title {
+    background: #caca9c;
+    padding: 10px;
+    text-align: center;
+    margin: 10px 0;
+    -webkit-box-shadow: 2px 4px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 4px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 4px 5px 0px rgba(0,0,0,0.75);
+}
+ul.product__item__pic__hover {
+    background: #ffc107;
+}
+ul.product__item__pic__hover button {
+    background: #fff;
+    border-radius: 50%;
+}
+.breadcrumb__text {
+    padding: 10px 0px;
+}
+.box-shadow{
+    -webkit-box-shadow: 2px 4px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 4px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 4px 5px 0px rgba(0,0,0,0.75);
+}
+.address p {
+    padding: 10px;
+    text-align: center;
 }

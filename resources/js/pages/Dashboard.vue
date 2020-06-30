@@ -207,10 +207,6 @@
 <script type="text/javascript">
     export default {
         created(){
-            if (!User.loggedIn()) {
-                this.$router.push({name : '/'})
-            }
-            this.name=User.id();
             axios.get('/api/product-count')
                 .then(({data}) => (this.products = data))
             axios.get('/api/stores-product-count')

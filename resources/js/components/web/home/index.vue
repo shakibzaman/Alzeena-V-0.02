@@ -31,15 +31,12 @@
                                     <button type="submit" class="site-btn">SEARCH</button>
                                 </form>
                             </div>
-                            <div class="hero__search__phone">
-                                <div class="hero__search__phone__icon">
-                                    <i class="fa fa-phone"></i>
+                                <div class="header__cart">
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>{{qty}}</span></a></li>
+                                    </ul>
+                                    <div class="header__cart__price">item: <span>{{subtotal}}<b>৳</b></span></div>
                                 </div>
-                                <div class="hero__search__phone__text">
-                                    <h5>+65 11.188.888</h5>
-                                    <span>support 24/7 time</span>
-                                </div>
-                            </div>
                         </div>
                         <div class="hero__item slider-image" :style="{'background-image':'url(http://localhost:8000/web/img/slider.jpg)'}">
                             <div class="hero__text">
@@ -104,9 +101,8 @@
                                 <img :src="'/'+product.image" class="image">
                             </div>
                             <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><router-link :to="{name: 'productShow',params:{id: product.id}}"><i class="fa fa-retweet"></i></router-link></li>
+                                <button class="btn bt-sm" @click.prevent="AddToCart(product.id)"><li><i class="fa fa-shopping-cart"></i></li></button>
                             </ul>
                         </div>
                         <div class="product__item__text">
@@ -126,16 +122,23 @@
     export default {
         created() {
             this.allProduct();
+            this.cartProduct();
             axios.get('/apipublic/public-online-product/')
                 .then(({data}) => (this.products = data))
                 .catch()
+
+            Reload.$on('AfterAdd', () => {
+                this.cartProduct();
+            })
+
         },
 
         data() {
             return {
                 categories: [],
                 searchTerm: '',
-                products:''
+                products:'',
+                cards:[],
             }
         },
         computed: {
@@ -143,12 +146,38 @@
                 return this.products.filter(product => {
                     return product.product_name.match(this.searchTerm)
                 })
-            }
+            },
+            qty(){
+                let sum=0;
+                for(let i =0; i < this.cards.length; i++ ){
+                    sum += (parseFloat(this.cards[i].pro_quantity));
+                }
+                return sum;
+            },
+            subtotal(){
+                let sum=0;
+                for(let i =0; i < this.cards.length; i++){
+                    sum += (parseFloat(this.cards[i].pro_quantity) * parseFloat(this.cards[i].product_price));
+                }
+                return sum;
+            },
         },
         methods: {
             allProduct() {
                 axios.get('/apipublic/online-category/')
                     .then(({data}) => (this.categories = data))
+                    .catch()
+            },
+            AddToCart(id){
+                axios.get('/apipublic/addTocart/'+id)
+                    .then(() => {
+                        Reload.$emit('AfterAdd');
+                        Notification.cart_success()
+                    })
+            },
+            cartProduct(){
+                axios.get('/apipublic/cart/product')
+                    .then(({data}) => (this.cards = data))
                     .catch()
             },
         }
