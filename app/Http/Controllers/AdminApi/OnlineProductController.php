@@ -157,4 +157,5 @@ class OnlineProductController extends Controller
             DB::table('online_products')->where('id',$id)->delete();
         }
     }
+   
 }

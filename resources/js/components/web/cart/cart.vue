@@ -62,12 +62,12 @@
                             Sub Total:
                             <strong>{{ subtotal }} Tk</strong>
                         </li>
-<!--                        <li class="list-group-item d-flex justify-content-between align-items-center">-->
-<!--                            discount <div class="col-md-4 pos-number-field"><input type="number" v-model.number="discount" class="form-control" >-->
-<!--                        </div>-->
-<!--                        </li>-->
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Delivery Charge<div class="col-md-4 pos-number-field"><input type="number" v-model.number="delevary_charge" class="form-control" >
+                            Delivery Location<div class="col-md-4 pos-number-field">
+                            <select class="form-control" v-model.number="delevary_charge">
+                                <option value="60">Inside Dhaka</option>
+                                <option value="120">Outside Dhaka</option>
+                            </select>
                         </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -75,7 +75,6 @@
                             <strong> {{discountTotal}} Tk</strong>
                             Delivery Total:
                             <strong> {{deliveryTotal}} Tk</strong>
-                            <!--                             <strong> {{delevary_charge}} Tk</strong>-->
                         </li>
                     </ul>
                     <br>
@@ -114,32 +113,37 @@
                                 </div>
                             </div>
                         </div>
-<!--                        <label>Pay</label>-->
-<!--                        <input type="text" class="form-control" v-model="pay">-->
-
-<!--                        <label>Due</label>-->
-<!--                        &lt;!&ndash;                      <input type="text" class="form-control">&ndash;&gt;-->
-<!--                        <p><b>{{Finaldue}}</b></p>-->
-<!--                        <label>Pay By </label>-->
-<!--                        <select class="form-control" v-model="payby">-->
-<!--                            <option value="HandCash">Hand Cash</option>-->
-<!--                            <option value="Cheaque">Cheaque</option>-->
-<!--                            <option value="GiftCard">Gift Card</option>-->
-<!--                        </select>-->
-<!--                        <label>Status</label>-->
-<!--                        <select class="form-control" v-model="order_status">-->
-<!--                            <option :value="status.id" v-for="status in statuss">{{ status.status_name }}</option>-->
-<!--                        </select>-->
-
-<!--                        <br>-->
-<!--                        <label>Delivery Company</label>-->
-<!--                        <select class="form-control" v-model="delevary_company">-->
-<!--                            <option :value="company.id" v-for="company in companies">{{ company.company_name }}</option>-->
-<!--                        </select>-->
-<!--                        <br>-->
-<!--                        <label>Note</label>-->
-<!--                        <input type="text" class="form-control" v-model="order_note">-->
-<!--                        <br>-->
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optradio"> Cash On Delivary
+                                </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optradio">Bkash
+                                </label>
+                                </div>
+                                <p>&nbsp;</p>
+                                <div class="form-label-group">
+                                        <input type="text" v-model="form.bkash" class="form-control"  required="" placeholder="Bkash Number">
+                                        
+                                        <small class="text-danger" v-if="errors.bkash">{{ errors.bkash[0] }}</small>
+                                </div>
+                                <p>&nbsp;</p>
+                                <div class="form-label-group">
+                                        <input type="text" v-model="form.tid" class="form-control"  required="" placeholder="TRN No.">
+                                    
+                                        <small class="text-danger" v-if="errors.tid">{{ errors.tid[0] }}</small>
+                                </div>
+                                
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>
                     </div>
@@ -160,7 +164,6 @@
             this.allCategory();
             this.allCustomer();
             this.cartProduct();
-            // this.id();
 
 
             Reload.$on('AfterAdd', () => {
@@ -175,6 +178,8 @@
                     name :'',
                     address:'',
                     phone:'',
+                    bkash:'',
+                    tid:'',
                 },
                 customer_id:'',
                 pay:'',
@@ -281,21 +286,16 @@
                         Notification.success()
                     })
             },
-            // id(){
-            //     this.user_id=User.id();
-            //     // console.log(this.user_id);
-            //
-            // },
             orderdone(){
                 axios.post('/apipublic/customer/',this.form)
                 let total =this.subtotal-this.discount;
 
-                var data = {order_note:this.order_note,delevary_company:this.delevary_company,delevary_charge:this.delevary_charge,discount:this.discount,qty:this.qty, subtotal:this.subtotal, phone:this.form.phone, payby:this.payby, pay:this.pay,total:total,order_status:this.order_status}
+                var data = {bkash:this.form.bkash,tid:this.form.tid,order_note:this.order_note,delevary_charge:this.delevary_charge,discount:this.discount,qty:this.qty, subtotal:this.subtotal, phone:this.form.phone, payby:this.payby, pay:this.pay,total:total,order_status:this.order_status}
 
                 axios.post('/apipublic/orderdone/',data)
                     .then(() => {
                         Notification.success()
-                        this.$router.push({ name: 'order' })
+                        this.$router.push({ name: 'homepage' })
                     })
             },
             // end cart methods

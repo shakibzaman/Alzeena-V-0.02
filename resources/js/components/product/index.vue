@@ -39,7 +39,8 @@
                     <tr v-for="product in filtersearch" :key="product.id">
                       <td>{{ product.product_name}}</td>
                       <td>{{ product.product_code}}</td>
-                      <td><img :src="product.image" id="em_photo"></td>
+                      <!-- <td><img :src="product.image" id="em_photo"></td> -->
+                      <td><img :src="'/'+product.image" id="em_photo"></td>
                       <td>{{ product.category_name }}</td>
                       <td>{{ product.buying_price }}</td>
                       <td>{{ product.selling_price }}</td>

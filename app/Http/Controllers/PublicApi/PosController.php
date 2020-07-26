@@ -19,7 +19,7 @@ class PosController extends Controller
     public function OrderDone(Request $request)
     {
     	 $validatedData = $request->validate([
-           'payby' => 'required',
+           'phone' => 'required',
          ]);
     	 $delevary_charge=$request->delevary_charge;
     	 $due=(($request->total)-($request->pay));
@@ -29,12 +29,13 @@ class PosController extends Controller
          $data['sub_total']=$request->subtotal;
          $data['discount']=$request->discount;
          $data['delevary_charge']=$request->delevary_charge;
-         $data['delevary_company']=$request->delevary_company;
          $data['order_note']=$request->order_note;
          $data['total']=$request->total;
          $data['payby']=$request->payby;
          $data['pay']=$request->pay;
          $data['due']=$due;
+         $data['bkash']=$request->bkash;
+         $data['tid']=$request->tid;
          $data['store_id']=2;
          $data['order_status']=$request->order_status;
          $data['order_by']=$request->user_id;

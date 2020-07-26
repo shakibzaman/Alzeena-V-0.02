@@ -28,3 +28,4 @@ Route::get('/cart/product', 'PublicApi\CartController@CartProduct');
 Route::get('/remove/cart/{id}', 'PublicApi\CartController@removeCart');
 Route::get('/increment/{id}', 'PublicApi\CartController@Increment');
 Route::get('/decrement/{id}', 'PublicApi\CartController@Decrement');
+Route::get('/related-product/{id}','PublicApi\OnlineProductController@related');

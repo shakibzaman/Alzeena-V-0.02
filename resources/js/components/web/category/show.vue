@@ -5,8 +5,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <div class="breadcrumb__text" v-for="category in categoriesproducts">
-                            <h2>Show Product from {{category.category_name}}</h2>
+                        <div class="breadcrumb__text">
+                            <h2>Show Product</h2>
                         </div>
                     </div>
                 </div>
@@ -16,9 +16,9 @@
         <div class="hero">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12" v-for="category in categoriesproducts">
+                    <div class="col-lg-12" >
                         <div class="row">
-                            <div class="col-md-3" >
+                            <div class="col-md-3" v-for="category in categoriesproducts">
 
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" >
@@ -57,7 +57,8 @@
             return{
                 errors:{},
                 categoriesproducts:{},
-                categories:{}
+                categories:{},
+                cards:[],
             }
         },
         created(){
@@ -90,6 +91,23 @@
                     .catch()
             },
 
+        },
+        computed:{
+            qty(){
+                let sum=0;
+                for(let i =0; i < this.cards.length; i++ ){
+                    sum += (parseFloat(this.cards[i].pro_quantity));
+                }
+                return sum;
+            },
+
+            subtotal(){
+                let sum=0;
+                for(let i =0; i < this.cards.length; i++){
+                    sum += (parseFloat(this.cards[i].pro_quantity) * parseFloat(this.cards[i].product_price));
+                }
+                return sum;
+            },
         }
     }
 </script>

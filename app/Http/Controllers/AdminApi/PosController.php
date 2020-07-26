@@ -24,7 +24,9 @@ class PosController extends Controller
          ]);
     	 $delevary_charge=$request->delevary_charge;
     	 $due=(($request->total)-($request->pay));
+    	 $custome_code=date('Ymjgis');
          $data=array();
+         $data['order_code']=$custome_code;
          $data['phone']=$request->phone;
          $data['qty']=$request->qty;
          $data['sub_total']=$request->subtotal;

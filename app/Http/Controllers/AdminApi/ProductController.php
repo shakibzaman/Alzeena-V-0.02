@@ -30,6 +30,8 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        
+        
          $validatedData = $request->validate([
          'product_name' => 'required|max:255',
          'product_code' => 'required|unique:products|max:255',
@@ -48,9 +50,18 @@ class ProductController extends Controller
                    $ext=explode('/', $sub)[1];
                    $name=time().".".$ext;
                    $img=Image::make($request->image)->resize(240,200);
-                   $upload_path='backend/product/';
+                   $upload_path='admin/backend/product/';
                    $image_url=$upload_path.$name;
                    $img->save($image_url);
+
+                   $position2 = strpos($request->mulimage, ';');
+                   $sub2=substr($request->mulimage, 0 ,$position2);
+                   $ext2=explode('/', $sub2)[1];
+                   $name2=time().".".$ext2;
+                   $img2=Image::make($request->mulimage)->resize(240,200);
+                   $upload_path2='admin/backend/product/';
+                   $image_url2=$upload_path2.$name2;
+                   $img2->save($image_url2);
 
                    $product = new Product;
                    $product->product_name = $request->product_name;
@@ -63,9 +74,15 @@ class ProductController extends Controller
                    $product->buying_date = $request->buying_date;
                    $product->product_quantity = $request->product_quantity;
                    $product->image =  $image_url;
+                   $product->mulimage=$image_url2;
+                   $product->details=$request->details;
+                   $product->discount_price=$request->discount_price;
+                
                    $product->save();
-            }else{
-                   $product = new Product;
+            }
+            
+        else{
+                    $product = new Product;
                    $product->product_name = $request->product_name;
                    $product->product_code = $request->product_code;
                    $product->category_id = $request->category_id;
@@ -75,8 +92,12 @@ class ProductController extends Controller
                    $product->selling_price = $request->selling_price;
                    $product->buying_date = $request->buying_date;
                    $product->product_quantity = $request->product_quantity;
+                   $product->details=$request->details;
+                   $product->discount_price=$request->discount_price;
                    $product->save();
+            
             }
+        
     }
 
     public function show($id)

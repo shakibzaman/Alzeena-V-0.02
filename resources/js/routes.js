@@ -16,6 +16,7 @@ let supplierAccount = require('./components/supplier/accountEntry.vue').default;
 let detailssupplier = require('./components/supplier/details.vue').default;
 let editSupplierAccount = require('./components/supplier/editAccount.vue').default;
 let invoiceSupplier = require('./components/supplier/invoice.vue').default;
+let addSupProduct = require('./components/supplier/addOrder.vue').default;
 // Saler
 let storesaler = require('./components/wholesaler/create.vue').default;
 let saler = require('./components/wholesaler/index.vue').default;
@@ -148,6 +149,7 @@ export const routes = [
     { path: '/admin/edit-supplier-account/:id', component: editSupplierAccount, name:'editSupplierAccount' },
     { path: '/admin/supplier-details/:id', component: detailssupplier, name:'detailssupplier' },
     { path: '/admin/supplier-invoice', component: invoiceSupplier, name:'invoiceSupplier' },
+    { path: '/admin/addSupProduct', component: addSupProduct, name:'addSupProduct' },
     // whole Saler
     { path: '/admin/store-saler', component: storesaler, name:'store-saler' },
     { path: '/admin/salers', component: saler, name:'saler' },

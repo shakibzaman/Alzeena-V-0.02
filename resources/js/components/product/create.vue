@@ -21,7 +21,7 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-label-group">
-                                        <input type="text" v-model="form.product_name" class="form-control"   required="">
+                                        <input type="text" v-model="form.product_name" class="form-control"  >
                                         <small class="text-danger" v-if="errors.product_name">{{ errors.product_name[0] }}</small>
                                         <label for="firstName">Product Name</label>
                                     </div>
@@ -70,14 +70,14 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-label-group">
-                                        <input type="text" v-model="form.buying_price" class="form-control"  required="">
+                                        <input type="text" v-model="form.buying_price" class="form-control" >
                                         <label for="nid">Buying Price</label>
                                         <small class="text-danger" v-if="errors.buying_price">{{ errors.buying_price[0] }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-label-group">
-                                        <input type="text" v-model="form.selling_price" class="form-control"  required="">
+                                        <input type="text" v-model="form.selling_price" class="form-control" >
                                         <label for="phone">Selling Price </label>
                                         <small class="text-danger" v-if="errors.selling_price">{{ errors.selling_price[0] }}</small>
                                     </div>
@@ -88,14 +88,32 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-label-group">
-                                        <input type="date" v-model="form.buying_date" class="form-control"  required="">
+                                        <input type="text" v-model="form.discount_price" class="form-control" >
+                                        <label for="nid">Discount Price</label>
+                                        <small class="text-danger" v-if="errors.discount_price">{{ errors.discount_price[0] }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <textarea class="form-control" v-model="form.details" rows=""></textarea>
+                                        <label for="phone">Details </label>
+                                        <small class="text-danger" v-if="errors.details">{{ errors.details[0] }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <input type="date" v-model="form.buying_date" class="form-control" >
                                         <label for="nid">Buying Date</label>
                                         <small class="text-danger" v-if="errors.buying_date">{{ errors.buying_date[0] }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-label-group">
-                                        <input type="text" v-model="form.product_quantity" class="form-control"  required="">
+                                        <input type="text" v-model="form.product_quantity" class="form-control" >
                                         <label for="phone">Quantity  </label>
                                         <small class="text-danger" v-if="errors.product_quantity">{{ errors.product_quantity[0] }}</small>
                                     </div>
@@ -117,6 +135,22 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="form-row">
+
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <input type="file" class="btn btn-info" @change="onFileselected2">
+
+                                        <small class="text-danger" v-if="errors.mulimage">{{ errors.mulimage[0] }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <img :src="form.mulimage" style="height:40px; width: 40px;">
+                                </div>
+                            </div>
+                        </div>
+                        
 
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>
@@ -128,7 +162,6 @@
 </template>
 
 <script>
-
     export default {
         data(){
             return{
@@ -142,15 +175,18 @@
                     selling_price : '',
                     buying_date:'',
                     image:'',
-                    product_quantity:''
+                    product_quantity:'',
+                    mulimage:'',
+                    details:'',
+                    discount_price:'',
                 },
                 errors:{},
                 categories:{},
                 suppliers:{},
                 sizes:{},
+                 
             }
         },
-
         methods:{
             onFileselected(event){
                 let file=event.target.files[0];
@@ -160,14 +196,28 @@
                     let reader = new FileReader();
                     reader.onload = event => {
                         this.form.image = event.target.result
-
                         //console.log(event.target.result);
                     };
+                
                     reader.readAsDataURL(file);
-
+                }
+            },
+            onFileselected2(event){
+                let file=event.target.files[0];
+                if (file.size > 1048770) {
+                    Notification.image_validation()
+                }else{
+                    let reader = new FileReader();
+                    reader.onload = event => {
+                        this.form.mulimage = event.target.result
+                        //console.log(event.target.result);
+                    };
+                
+                    reader.readAsDataURL(file);
                 }
             },
             productInsert(){
+            
                 axios.post('/api/product/',this.form)
                     .then(() => {
                         this.$router.push({ name: 'product' })
@@ -175,30 +225,21 @@
                     })
                     .catch(error => this.errors = error.response.data.errors)
             },
-
+            
         },
         created(){
             axios.get('/api/category')
                 .then(({data}) => (this.categories = data))
-
             axios.get('/api/supplier/')
                 .then(({data}) => (this.suppliers = data))
-
             axios.get('/api/size/')
                 .then(({data}) => (this.sizes = data))
         },
-
     }
-
-
-
-
 </script>
 
 <style>
-
     #add_new{
         float: right;
     }
-
 </style>

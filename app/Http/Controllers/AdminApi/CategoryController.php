@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
 use DB;
+use Image;
 class CategoryController extends Controller
 {
     /**
@@ -32,10 +33,26 @@ class CategoryController extends Controller
         $validatedData = $request->validate([
          'category_name' => 'required|unique:categories|max:255',
         ]);
+        if($request->image){
+            $position = strpos($request->image, ';');
+            $sub=substr($request->image, 0 ,$position);
+            $ext=explode('/', $sub)[1];
+            $name=time().".".$ext;
+            $img=Image::make($request->image)->resize(240,200);
+            $upload_path='admin/backend/product/';
+            $image_url=$upload_path.$name;
+            $img->save($image_url);
 
            $category = new Category;
            $category->category_name = $request->category_name;
+           $category->image =  $image_url;
            $category->save();
+        }
+        else{
+            $category = new Category;
+            $category->category_name = $request->category_name;
+            $category->save();
+        }
 
            //query builder
            // $data=array();

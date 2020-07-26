@@ -15,7 +15,14 @@
         <!-- Breadcrumb Section End -->
         <div class="container">
             <div class="row">
+
                 <div class="card-body shop-page">
+<!--                    <div class="header__cart">-->
+<!--                        <ul>-->
+<!--                            <li><router-link to="/public-cart"><i class="fa fa-shopping-bag"></i> <span>{{qty}}</span></router-link></li>-->
+<!--                        </ul>-->
+<!--                        <div class="header__cart__price">item: <span>{{subtotal}}<b>৳</b></span></div>-->
+<!--                    </div>-->
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">All Product</a>
@@ -31,13 +38,13 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <input type="text" v-model="searchTerm" class="form-control" placeholder="search"><br>
                             <div class="row">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-6" v-for="product in filtersearch" :key="product.id">
+                                <div class="col-md-3 public-card" v-for="product in filtersearch" :key="product.id">
 
-                                    <div class="card" style="width: 9rem; height: 180px;">
+                                    <div class="card">
                                         <!--                                    <img :src="'/'+product.image" class="image">-->
                                         <img :src="'/'+product.image" class="card-img-top" style="height: 100px; width: 100px;">
                                         <div class="card-body">
-                                            <small class="card-title">{{ product.product_name }}</small>
+                                            <small class="card-title">{{ product.product_name }}</small><br>
                                             <span class="badge badge-success" v-if="product.product_quantity >= 1"> Availble ({{ product.product_quantity }}) </span>
                                             <span class="badge badge-danger" v-else="">Stock Out</span>
                                             <ul class="product__item__pic__hover">
@@ -53,12 +60,12 @@
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <input type="text" v-model="getsearchTerm" class="form-control" placeholder="search"><br>
                             <div class="row">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-6" v-for="getproduct in getfiltersearch" :key="getproduct.id">
-                                    <div class="card" style="width: 9rem; height: 180px;">
+                                <div class="col-md-3 public-card" v-for="getproduct in getfiltersearch" :key="getproduct.id">
+                                    <div class="card" >
                                         <img :src="'/'+getproduct.image" class="image">
                                         <!--                                    <img :src="getproduct.image" class="card-img-top" style="height: 100px; width: 100px;">-->
                                         <div class="card-body">
-                                            <small class="card-title">{{ getproduct.product_name }}</small>
+                                            <small class="card-title">{{ getproduct.product_name }}</small><br>
                                             <span class="badge badge-success" v-if="getproduct.product_quantity >= 1"> Availble ({{ getproduct.product_quantity }}) </span>
                                             <span class="badge badge-danger" v-else="">Stock Out</span>
                                             <ul class="product__item__pic__hover">
@@ -101,6 +108,7 @@
             }
         },
         computed:{
+
             filtersearch(){
                 return this.products.filter(product => {
                     return product.product_name.match(this.searchTerm)

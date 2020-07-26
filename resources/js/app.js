@@ -54,6 +54,8 @@ Vue.prototype.$auth = new Auth(window.user);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('admin', require('./components/Admin.vue').default);
 Vue.component('public', require('./components/public/Public.vue').default);
+Vue.component('publicheader', require('./components/web/publicHeader').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 
 window.Reload = new Vue();

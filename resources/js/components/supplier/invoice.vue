@@ -113,18 +113,6 @@
                     })
                     .catch(error => this.errors = error.response.data.errors)
             },
-            addNewRow() {
-                this.invoice_products.push({
-                    invoice_products: [{
-                        buying_date: '',
-                        product_id: '',
-                        supplier_id: '',
-                        buy_price: '',
-                        pro_code:'',
-                        pro_qty: '',
-                    }]
-                });
-            }
 
         },
         created(){

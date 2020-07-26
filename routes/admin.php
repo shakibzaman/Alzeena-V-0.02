@@ -15,6 +15,7 @@ Route::post('blogs/{blog}/update-image', 'BlogController@updateFeaturedImage')->
 
 //Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('/supplier', 'AdminApi\SupplierController');
+    Route::apiResource('/supplierOrder', 'AdminApi\SupplierOrderController');
     Route::apiResource('/category', 'AdminApi\CategoryController')->middleware('auth');
     Route::apiResource('/wholesale', 'AdminApi\WholeSalerController')->middleware('auth');
 

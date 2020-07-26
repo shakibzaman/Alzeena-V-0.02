@@ -38,7 +38,7 @@
                   <tbody>
 
                     <tr v-for="order in filtersearch" :key="order.id">
-                      <td>{{ order.id }}</td>
+                      <td>{{ order.order_code }}</td>
                       <td>{{ order.name }}</td>
                       <td>{{ order.sub_total }}</td>
                       <td>{{ order.total}}</td>
@@ -77,7 +77,7 @@
        computed:{
          filtersearch(){
           return this.orders.filter(order => {
-             return order.name.match(this.searchTerm)
+             return order.order_code.match(this.searchTerm)
            })
          }
        },

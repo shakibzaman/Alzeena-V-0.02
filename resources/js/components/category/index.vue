@@ -24,6 +24,7 @@
                   <thead>
                     <tr>
                       <th>Name</th>
+                      <th>Image</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -32,6 +33,7 @@
 
                     <tr v-for="category in filtersearch" :key="category.id">
                       <td>{{ category.category_name }}</td>
+                      <td><img :src="'/'+category.image" id="em_photo"></td>
 
                       <td>
                         <router-link :to="{name: 'edit-category', params:{id: category.id} }" class="btn btn-sm btn-info">Edit</router-link>

@@ -27,7 +27,20 @@
 	                </div>
 	               </div>
 	             </div>
-	            </div>     
+	            </div>
+              <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                            <input type="file" class="btn btn-info" @change="onFileselected">
+                            <small class="text-danger" v-if="errors.image">{{ errors.image[0] }}</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img :src="form.image" style="height:40px; width: 40px;">
+                    </div>
+                </div>
+              </div>     
 	          </div>
               <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -41,22 +54,33 @@
 <script>
 
     export default {
-    	mounted(){
-            if (!User.loggedIn()) {
-               this.$router.push({ name:'/' })
-            } 
-        },
+    
         data(){
         	return{
         		form:{
-        			category_name :''
+              category_name :'',
+              image:'',
         		},
         		errors:{},
         	}
         },
         
 
-        methods:{ 	
+        methods:{
+          onFileselected(event){
+                let file=event.target.files[0];
+                if (file.size > 1048770) {
+                    Notification.image_validation()
+                }else{
+                    let reader = new FileReader();
+                    reader.onload = event => {
+                        this.form.image = event.target.result
+                        //console.log(event.target.result);
+                    };
+                
+                    reader.readAsDataURL(file);
+                }
+            }, 	
         	categoryInsert(){
         		axios.post('/api/category/',this.form)
         		.then(() => {

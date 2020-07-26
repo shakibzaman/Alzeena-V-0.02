@@ -162,4 +162,10 @@ class OnlineProductController extends Controller
             DB::table('online_products')->where('id',$id)->delete();
         }
     }
+    public function related($id)
+    {
+        $product=DB::table('online_products')->where('category_id','online_products.category_id')->select('*')->first();
+        // $productList=DB::table('online_products')->where('category_id',$product)->get();
+        return response()->json($product);
+    }
 }

@@ -83,6 +83,7 @@
             axios.get('/apipublic/public-online-product/'+id)
                 .then(({data}) => (this.categoriesproducts = data))
                 .catch()
+                
 
             axios.get('/apipublic/online-category/')
                 .then(({data}) => (this.categories = data))
